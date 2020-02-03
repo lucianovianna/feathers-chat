@@ -7,22 +7,22 @@ const gravatarUrl = 'https://s.gravatar.com/avatar';
 const query = 's=60';
 
 exports.Users = class Users extends Service {
-    create(data, params) {
-        // This is the information we want from the user signup data
-        const { email, password, githubId } = data;
-        // Gravatar uses MD5 hashes from an email address (all lowercase) to get the image
-        const hash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+  create(data, params) {
+    // This is the information we want from the user signup data
+    const { email, password, githubId } = data;
+    // Gravatar uses MD5 hashes from an email address (all lowercase) to get the image
+    const hash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
 
-        const avatar = `${gravatarUrl}/${hash}?${query}`;
-        // The complete user
-        const userData = {
-            email,
-            password,
-            githubId,
-            avatar
-        };
+    const avatar = `${gravatarUrl}/${hash}?${query}`;
+    // The complete user
+    const userData = {
+      email,
+      password,
+      githubId,
+      avatar
+    };
 
-        // Call the original `create` method with existing `params` and new data
-        return super.create(userData, params);
-    }
+    // Call the original `create` method with existing `params` and new data
+    return super.create(userData, params);
+  }
 };
